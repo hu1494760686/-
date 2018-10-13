@@ -1,0 +1,96 @@
+ Ctrl + a 光标移到命令行首，相当于Home
+2. Ctrl + e 光标移到命令行尾，相当于End
+3. Ctrl + f 光标向右移动一个字符
+4. Ctrl + b 光标向左移动一个字符
+5. Alt + f 光标向右移动一个单词尾
+6. Alt + b 光标向左移动一个单词首
+7. Ctrl + xx 光标在命令行首和光标之间移动
+8. Ctrl + u 从光标处删除至命令行首
+9. Ctrl + k 从光标处删除至命令行尾
+10. Alt + r 删除当前整行
+11. Ctrl + l 清屏，相当于clear命令
+12. Ctrl + s 阻止屏幕输出，锁定
+13. Ctrl + o 执行当前命令，并重新显示本命令
+14. Ctrl + q 允许屏幕输出
+15. Ctrl + c 终止命令
+16. Ctrl + z 挂起命令
+17. command !n:* 调用第n条命令的所有参数
+18. command !n:m 调用第n条命令的第m个参数
+19. command !n:$ 调用第n条命令的最后一个参数
+20. command !n:^ 调用第n条命令的第一个参数
+21. command !:n 利用上一个命令的第n个参数做cmd的参数
+22. command !* 利用上一个命令的全部参数做cmd的参数
+23. command !$ 利用上一个命令的最后一个参数做cmd的参数
+24. command !^ 利用上一个命令的第一个参数做cmd的参数
+## history的引用
+1.  history后面加-c: 清空命令历史
+2.  history后面加-d offset: 删除历史中指定的第offset个命令（offset为任意数）
+3. history后面加n: 显示最近的n条历史
+4. history后面加-a: 追加本次会话新执行的命令历史列表至历史文件
+5. history后面加-r: 读历史文件附加到历史列表
+6. history后面加-w: 保存历史列表到指定的历史文件
+7. history后面加-n: 读历史文件中未读过的行到历史列表
+8. history后面加-p: 展开历史参数成多行，但不存在历史列表中
+9. history后面加-s: 展开历史参数成一行，附加在历史列表后
+##       nano 文本编辑
+1. 创建新screen会话：screen –S [SESSION]
+2.  加入screen会话：screen –x [SESSION]
+3. 退出并关闭screen会话：exit
+4. 剥离当前screen会话：Ctrl+a,d
+5. 显示所有已经打开的screen会话：screen -ls
+6. 恢复某screen会话：screen -r [SESSION]
+## echo的命令选项
+1. -E （默认）不支持 \ 解释功能
+2. -n 不自动换行
+3. -e 启用 \ 字符的解释功能
+## echo显示的变量： 
+1. echo "$VAR_NAME” 变量会替换，弱引用
+2. echo '$VAR_NAME’ 变量不会替换，强引用
+## Linux用户和组的主要配置文件：
+1. /etc/passwd：用户及其属性信息(名称、UID、主组ID等）
+2. /etc/group：组及其属性
+3. /etc/shadow：用户密码及其相关
+4. /etc/gshadow：组密码及其相关属性
+## 切换用户或以其他用户身份执行命令 
+####切换用户的方式：
+1. su UserName：非登录式切换，即不会读取目标用户的配置文件，不改变
+当前工作目录
+2. su - UserName：登录式切换，会读取目标用户的配置文件，切换至家目
+录，完全切换
+3. root su至其他用户无须密码；非root用户切换时需要密码
+### 换个身份执行命令：
+1. su [-] UserName -c 'COMMAN
+### 选项：-l --login
+1. su -l UserName 相当于 su - UserName
+# 设置密码
+passwd [OPTIONS] UserName: 修改指定用户的密码
+## 常用选项
+1. -d：删除指定用户密码
+2. -l：锁定指定用户
+3. -u：解锁指定用户
+4. -e：强制用户下次登录修改密码
+5. -f：强制操作
+6. -n mindays：指定最短使用期限
+7. -x maxdays：最大使用期限
+8. w warndays：提前多少天开始警告
+9. -i inactivedays：非活动期限
+10. --stdin：从标准输入接收用户密码
+echo "PASSWORD" | passwd --stdin USERNAME
+# 更改组密码
+### 组密码：gpasswd
+#### gpasswd [OPTION] GROUP
+1. -a user 将user添加至指定
+2. -d user 从指定组中移除用户user
+3. -A user1,user2,... 设置有管理权限的用户列表
+### newgrp命令：临时切换主组
+#### 如果用户本不属于此组，则需要组密码
+# 文件权限
+## 文件：
+1. r: 可使用文件查看类工具获取其内容
+2. w: 可修改其内容
+3. x: 可以把此文件提请内核启动为一个进程
+## 目录：
+1. r: 可以使用ls查看此目录中文件列表
+2. w: 可在此目录中创建文件，也可删除此目录中的文件
+3. x: 可以使用ls -l查看此目录中文件元数据（须配合r），可以cd进入此目录
+4. X:只给目录x权限，不给文件x权限
